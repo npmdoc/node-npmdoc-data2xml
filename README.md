@@ -1,6 +1,6 @@
 # npmdoc-data2xml
 
-#### api documentation for  [data2xml (v1.2.5)](https://github.com/chilts/data2xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-data2xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-data2xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-data2xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-data2xml)
+#### basic api documentation for  [data2xml (v1.2.5)](https://github.com/chilts/data2xml)  [![npm package](https://img.shields.io/npm/v/npmdoc-data2xml.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-data2xml) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-data2xml.svg)](https://travis-ci.org/npmdoc/node-npmdoc-data2xml)
 
 #### A data to XML converter with a nice interface (for NodeJS).
 
@@ -66,7 +66,8 @@
     "scripts": {
         "test": "set -e; for FILE in test/*.js; do node $FILE; done"
     },
-    "version": "1.2.5"
+    "version": "1.2.5",
+    "bin": {}
 }
 ```
 
