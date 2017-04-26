@@ -106,80 +106,6 @@
 
         </li>
 
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.toString">
-            function <span class="apidocSignatureSpan">data2xml.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.data2xml.entitify">module data2xml.entitify</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.entitify.entitify">
-            function <span class="apidocSignatureSpan">data2xml.</span>entitify
-            <span class="apidocSignatureSpan">(str)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.data2xml.makeElement">module data2xml.makeElement</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.makeElement.makeElement">
-            function <span class="apidocSignatureSpan">data2xml.</span>makeElement
-            <span class="apidocSignatureSpan">(name, data, opts)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.data2xml.makeEndTag">module data2xml.makeEndTag</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.makeEndTag.makeEndTag">
-            function <span class="apidocSignatureSpan">data2xml.</span>makeEndTag
-            <span class="apidocSignatureSpan">(name)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.data2xml.makeStartTag">module data2xml.makeStartTag</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.makeStartTag.makeStartTag">
-            function <span class="apidocSignatureSpan">data2xml.</span>makeStartTag
-            <span class="apidocSignatureSpan">(name, attr)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.data2xml.toString">module data2xml.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.data2xml.toString.toString">
-            function <span class="apidocSignatureSpan">data2xml.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
     </ol></li>
 
 </ol></div>
@@ -248,7 +174,22 @@
         .replace(/&#x22;/g, &#x27;&#x26;quot;&#x27;);
     return str;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var test = require(&#x27;tape&#x27;);
+var data2xml = require(&#x27;../data2xml&#x27;);
+
+// --------------------------------------------------------------------------------------------------------------------
+
+test(&#x27;some simple entities&#x27;, function (t) {
+var test1 = data2xml.<span class="apidocCodeKeywordSpan">entitify</span>(&#x27;&#x3c;hello&#x3e;&#x27;);
+var exp1 = &#x27;&#x26;lt;hello&#x26;gt;&#x27;;
+t.equal(test1, exp1, &#x27;LT and GT entitified correctly&#x27;);
+
+var test2 = data2xml.entitify(&#x27;\&#x27;&#x26;\&#x22;&#x27;);
+var exp2 = &#x27;&#x26;apos;&#x26;amp;&#x26;quot;&#x27;;
+t.equal(test2, exp2, &#x27;other entities&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -330,7 +271,22 @@
     <li>description and source-code<pre class="apidocCodePre">function makeEndTag(name) {
     return &#x27;&#x3c;/&#x27; + name + &#x27;&#x3e;&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+
+test(&#x27;making some elements&#x27;, function (t) {
+var test1 = data2xml.makeStartTag(&#x27;tagme&#x27;);
+var exp1 = &#x27;&#x3c;tagme&#x3e;&#x27;;
+t.equal(test1, exp1, &#x27;simple start tag&#x27;);
+
+var test2 = data2xml.<span class="apidocCodeKeywordSpan">makeEndTag</span>(&#x27;tagme&#x27;);
+var exp2 = &#x27;&#x3c;/tagme&#x3e;&#x27;;
+t.equal(test2, exp2, &#x27;simple end tag&#x27;);
+
+var test3 = data2xml.makeStartTag(&#x27;tagme&#x27;, { attr : &#x27;value&#x27; });
+var exp3 = &#x27;&#x3c;tagme attr=&#x22;value&#x22;&#x3e;&#x27;;
+t.equal(test3, exp3, &#x27;1) complex start tag&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -349,183 +305,22 @@
     tag += &#x27;&#x3e;&#x27;;
     return tag;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
+    <li>example usage<pre class="apidocCodePre">...
+var exp2 = &#x27;&#x26;apos;&#x26;amp;&#x26;quot;&#x27;;
+t.equal(test2, exp2, &#x27;other entities&#x27;);
 
+t.end();
+});
 
+test(&#x27;making some elements&#x27;, function (t) {
+var test1 = data2xml.<span class="apidocCodeKeywordSpan">makeStartTag</span>(&#x27;tagme&#x27;);
+var exp1 = &#x27;&#x3c;tagme&#x3e;&#x27;;
+t.equal(test1, exp1, &#x27;simple start tag&#x27;);
 
-    <h2>
-        <a href="#apidoc.element.data2xml.toString" id="apidoc.element.data2xml.toString">
-        function <span class="apidocSignatureSpan">data2xml.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.data2xml.entitify" id="apidoc.module.data2xml.entitify">module data2xml.entitify</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.data2xml.entitify.entitify" id="apidoc.element.data2xml.entitify.entitify">
-        function <span class="apidocSignatureSpan">data2xml.</span>entitify
-        <span class="apidocSignatureSpan">(str)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function entitify(str) {
-    str = &#x27;&#x27; + str;
-    str = str
-        .replace(/&#x26;/g, &#x27;&#x26;amp;&#x27;)
-        .replace(/&#x3c;/g,&#x27;&#x26;lt;&#x27;)
-        .replace(/&#x3e;/g,&#x27;&#x26;gt;&#x27;)
-        .replace(/&#x27;/g, &#x27;&#x26;apos;&#x27;)
-        .replace(/&#x22;/g, &#x27;&#x26;quot;&#x27;);
-    return str;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.data2xml.makeElement" id="apidoc.module.data2xml.makeElement">module data2xml.makeElement</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.data2xml.makeElement.makeElement" id="apidoc.element.data2xml.makeElement.makeElement">
-        function <span class="apidocSignatureSpan">data2xml.</span>makeElement
-        <span class="apidocSignatureSpan">(name, data, opts)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function makeElement(name, data, opts) {
-    var cdataRegExp = /]]\&#x3e;/g;
-
-    var element = &#x27;&#x27;;
-    if ( Array.isArray(data) ) {
-        data.forEach(function(v) {
-            element += makeElement(name, v, opts);
-        });
-        return element;
-    }
-    else if ( typeof data === &#x27;undefined&#x27; ) {
-        return undefinedElement(name, null, opts);
-    }
-    else if ( data === null ) {
-        return nullElement(name, null, opts);
-    }
-    else if ( typeof data === &#x27;object&#x27; ) {
-        var valElement;
-        if (data.hasOwnProperty(opts.valProp)) {
-            valElement = data[opts.valProp];
-
-            if (typeof valElement === &#x27;undefined&#x27;) {
-                return undefinedElement(name, data[opts.attrProp], opts);
-            }
-
-            if (valElement === null) {
-                return nullElement(name, data[opts.attrProp], opts);
-            }
-        }
-        element += makeStartTag(name, data[opts.attrProp]);
-
-        if (valElement) {
-            element += entitify(valElement);
-        }
-        else if ( data[opts.cdataProp] ) {
-            element += &#x27;&#x3c;![CDATA[&#x27; + data[opts.cdataProp].replace(cdataRegExp, &#x27;]]]]&#x3e;&#x3c;![CDATA[&#x3e;&#x27;) + &#x27;]]&#x3e;&#x27;;
-        }
-
-        for (var el in data) {
-            if ( el === opts.attrProp || el === opts.valProp || el === opts.cdataProp) {
-                continue;
-            }
-            element += makeElement(el, data[el], opts);
-        }
-
-        element += makeEndTag(name);
-
-        return element;
-    }
-    else {
-        // a piece of data on it&#x27;s own can&#x27;t have attributes
-        return makeStartTag(name) + entitify(data) + makeEndTag(name);
-    }
-    throw &#x27;Unknown data &#x27; + data;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.data2xml.makeEndTag" id="apidoc.module.data2xml.makeEndTag">module data2xml.makeEndTag</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.data2xml.makeEndTag.makeEndTag" id="apidoc.element.data2xml.makeEndTag.makeEndTag">
-        function <span class="apidocSignatureSpan">data2xml.</span>makeEndTag
-        <span class="apidocSignatureSpan">(name)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function makeEndTag(name) {
-    return &#x27;&#x3c;/&#x27; + name + &#x27;&#x3e;&#x27;;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.data2xml.makeStartTag" id="apidoc.module.data2xml.makeStartTag">module data2xml.makeStartTag</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.data2xml.makeStartTag.makeStartTag" id="apidoc.element.data2xml.makeStartTag.makeStartTag">
-        function <span class="apidocSignatureSpan">data2xml.</span>makeStartTag
-        <span class="apidocSignatureSpan">(name, attr)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function makeStartTag(name, attr) {
-    attr = attr || {};
-    var tag = &#x27;&#x3c;&#x27; + name;
-    tag += makeElementAttrs(attr);
-    tag += &#x27;&#x3e;&#x27;;
-    return tag;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.data2xml.toString" id="apidoc.module.data2xml.toString">module data2xml.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.data2xml.toString.toString" id="apidoc.element.data2xml.toString.toString">
-        function <span class="apidocSignatureSpan">data2xml.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+var test2 = data2xml.makeEndTag(&#x27;tagme&#x27;);
+var exp2 = &#x27;&#x3c;/tagme&#x3e;&#x27;;
+t.equal(test2, exp2, &#x27;simple end tag&#x27;);
+...</pre></li>
     </ul>
 
 
